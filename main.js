@@ -3,9 +3,11 @@ var express = require('express');
 var app = express();
 var fs = require('fs');
 var multer  = require('multer');
-var redisIp = fs.readFileSync('~/Fall2016/Devops/M3/redisServer.txt', 'utf-8');
+var redisIp = fs.readFileSync('redisServer.txt', 'utf-8');
 // var redisIp = '159.203.141.25';
 var client = redis.createClient(6379, redisIp, {})
+var count = 0;
+client.set("feature", "on");
 
 app.get('/', function(req, res){
   res.send('Hello world!');
@@ -20,6 +22,15 @@ app.get('/set', function(req, res){
 			res.send('Not allowed to set key');
 		}
 	});
+});
+
+app.get('/get', function(req, res){
+	count = count + 1;
+	if(count == 3)
+		client.set("alert", true);
+	else
+		client.set("alert", false);
+	res.send("Alert!");
 });
 
 // app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
