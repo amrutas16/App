@@ -27,10 +27,15 @@ app.get('/set', function(req, res){
 app.get('/get', function(req, res){
 	count = count + 1;
 	if(count == 3)
+	{
+		res.send("Get")
 		client.set("alert", true);
+	}
 	else
+	{
 		client.set("alert", false);
-	res.send("Alert!");
+		res.send("Alert!");
+	}
 });
 
 // app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
