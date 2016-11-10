@@ -8,7 +8,7 @@ var multer  = require('multer');
 var redisIp = '127.0.0.1';
 var client = redis.createClient(6379, redisIp, {})
 var count = 0;
-client.set("feature", "on");
+// client.set("feature", "off");
 
 app.get('/', function(req, res){
   res.send('Hello world!');
@@ -24,6 +24,11 @@ app.get('/set', function(req, res){
 		}
 	});
 });
+
+app.get('/setKey', function(req, res){
+	res.send('Key set!!!');
+
+})
 
 app.get('/get', function(req, res){
 	count = count + 1;
