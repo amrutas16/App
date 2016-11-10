@@ -5,17 +5,17 @@ var expect = chai.expect;
 var request = require("request");
 
 describe("test", function() {
-  describe('GET /setKey', function () {
+  describe('GET /', function () {
    it("should have status code 200", function(done) {
-      request("http://localhost:3000/setKey", function(error, response, body) {
+      request("http://localhost:3000/", function(error, response, body) {
       	expect(response.statusCode).to.equal(200);
         done();
       });
     });
 
-   it("should respond with 'Key set!'", function(done) {
-      request("http://localhost:3000/set", function(error, response, body) {
-        expect(body).to.equal("Key set!");
+   it("should respond with 'Hello!'", function(done) {
+      request("http://localhost:3000/", function(error, response, body) {
+        expect(body).to.equal("Hello!");
         done();
       });
    });

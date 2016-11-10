@@ -11,7 +11,7 @@ var count = 0;
 // client.set("feature", "off");
 
 app.get('/', function(req, res){
-  res.send('Hello world!');
+  res.send('Hello!');
 });
 
 app.get('/set', function(req, res){
@@ -25,10 +25,6 @@ app.get('/set', function(req, res){
 	});
 });
 
-app.get('/setKey', function(req, res){
-	res.send('Key set!!!');
-
-})
 
 app.get('/get', function(req, res){
 	count = count + 1;
@@ -47,6 +43,7 @@ app.get('/get', function(req, res){
 if(true){
 	console.log("True");
 }
+
 
 
 // app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
