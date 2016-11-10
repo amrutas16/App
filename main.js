@@ -5,9 +5,11 @@ var fs = require('fs');
 var multer  = require('multer');
 // var redisIp = fs.readFileSync('redisServer.txt', 'utf-8');
 // var redisIp = '159.203.141.25';
-var redisIp = '127.0.0.1';
-var client = redis.createClient(6379, redisIp, {})
+// var redisIp = '127.0.0.1';
+// var client = redis.createClient(6379, redisIp, {})
 var count = 0;
+
+var client = require('./store.js');
 // client.set("feature", "off");
 
 app.get('/', function(req, res){
@@ -15,14 +17,27 @@ app.get('/', function(req, res){
 });
 
 app.get('/set', function(req, res){
-	client.get("feature", function(err, value){
-		if(value == "on"){
+	// client.get("feature", function(err, value){
+	// 	if(value == "on"){
+	// 		res.send('Key set!');			
+	// 	}
+	// 	else{
+	// 		res.send('Not allowed to set key');
+	// 	}
+	// });
+	console.log('/set');
+	client.getFeature(function(value){
+		console.log("value is ", value);
+		if(value == "on")
+		{
 			res.send('Key set!');			
 		}
-		else{
+		else
+		{
 			res.send('Not allowed to set key');
-		}
+		}	
 	});
+	
 });
 
 
