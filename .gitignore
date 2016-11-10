@@ -1,3 +1,4 @@
 node_modules
 .gitignore
-pmd-*
+pmd-bin-5.4.3
+pmd.xml
