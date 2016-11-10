@@ -1,0 +1,2 @@
+[redisProxy]
+redisProxy ansible_ssh_host=159.203.141.164 ansible_ssh_user=root ansible_ssh_private_key_file=~/.ssh/id_rsa
