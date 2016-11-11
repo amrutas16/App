@@ -47,10 +47,10 @@ app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
 	   fs.readFile( req.files.image.path, function (err, data) {
 	  		if (err) {throw err};
 	  		var img = new Buffer(data).toString('base64');
-	  // 		if(img.length > 50000)
-			// 	client.set("alert",true); // form fields
-			// else
-			// 	client.set("alert",false);
+	  		if(img.length > 50000)
+				client.set("alert",true); // form fields
+			else
+				client.set("alert",false);
 	  		client.lpush("imglist", img, function(err, value){
 	  		})
 		});
