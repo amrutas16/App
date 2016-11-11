@@ -4,13 +4,8 @@ var app = express();
 var fs = require('fs');
 var multer  = require('multer');
 var redisIp = fs.readFileSync('redisServer.txt', 'utf-8');
-// var redisIp = '159.203.141.25';
-// var redisIp = '127.0.0.1';
 var client = redis.createClient(6379, redisIp, {})
 var count = 0;
-
-// var client = require('./store.js');
-// client.set("feature", "off");
 
 app.get('/', function(req, res){
   res.send('Hello!');
@@ -21,23 +16,11 @@ app.get('/set', function(req, res){
 		if(value == "on"){
 			res.send('Key set!');			
 		}
+		
 		else{
 			res.send('Not allowed to set key');
 		}
 	});
-	// console.log('/set');
-	// client.getFeature(function(value){
-	// 	console.log("value is ", value);
-	// 	if(value == "on")
-	// 	{
-	// 		res.send('Key set!');			
-	// 	}
-	// 	else
-	// 	{
-	// 		res.send('Not allowed to set key');
-	// 	}	
-	// });
-	
 });
 
 
@@ -55,23 +38,19 @@ app.get('/set', function(req, res){
 // 	}
 // });
 
-if(true){
-	console.log("True");
-}
-
 app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
    // console.log(req.body) // form fields
    // console.log(req.files) // form files
-	if(req.body.size > 50000)
-		client.set("alert",true); // form fields
-	else
-		client.set("alert",false);
+	
    if( req.files.image )
    {
 	   fs.readFile( req.files.image.path, function (err, data) {
-	  		if (err) throw err;
+	  		if (err) {throw err};
 	  		var img = new Buffer(data).toString('base64');
-	  		// console.log(img);
+	  // 		if(img.length > 50000)
+			// 	client.set("alert",true); // form fields
+			// else
+			// 	client.set("alert",false);
 	  		client.lpush("imglist", img, function(err, value){
 	  		})
 		});
@@ -83,8 +62,6 @@ app.post('/upload',[ multer({ dest: './uploads/'}), function(req, res){
 app.get('/meow', function(req, res) {
 	{
 		client.lpop("imglist", function(err,imagedata){
-			// console.log(imagedata.length);
-			// client.set("imgLength", imagedata.length);
 			res.writeHead(200, {'content-type':'text/html'});
 			res.write("<h1>\n<img src='data:my_pic.jpg;base64,"+imagedata+"'/>");
 			res.end();
