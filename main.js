@@ -4,8 +4,8 @@ var app = express();
 var fs = require('fs');
 var multer  = require('multer');
 var redisIp = fs.readFileSync('redisServer.txt', 'utf-8');
-// var client = redis.createClient(6379, redisIp, {})
-var client = redis.createClient(6379, '127.0.0.1', {})
+var client = redis.createClient(6379, redisIp, {})
+// var client = redis.createClient(6379, '127.0.0.1', {})
 var count = 0;
 
 app.get('/', function(req, res){
@@ -17,6 +17,7 @@ app.get('/set', function(req, res){
 		if(value == "on"){
 			res.send('Key set!');			
 		}
+		
 		
 		
 		else{
